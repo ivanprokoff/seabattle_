@@ -29,7 +29,7 @@ class BattleField(QWidget):
         """
         Инициализация интерфейса поля морского боя
         """
-        cell_size = 32
+        cell_size = 34
         self.table = QTableWidget()
         self.table.setColumnCount(10)
         self.table.setRowCount(10)
@@ -144,7 +144,7 @@ class BattleField(QWidget):
 
     def count_if(self, value):
         """
-        :return: Возвращает количество ячеекЮ значение в которых равно value.
+        :return: Возвращает количество ячеек, значение в которых равно value.
         """
         count = 0
         for x in range(self.FIELDS_NUM):
@@ -155,7 +155,7 @@ class BattleField(QWidget):
 
     def change_field_after_shot(self, row, col, is_hit):
         """
-        Обработчик выстрелов по координатам (row, col)
+        Меняет поле после выстрела по координатам (row, col)
         """
         if is_hit:
             self.field[row][col] = self.HIT_CELL
