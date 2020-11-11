@@ -1,13 +1,9 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
   <component name="ChangeListManager">
-    <list default="true" id="4002836b-4aa0-4069-8b2a-ddc594f1a214" name="Default Changelist" comment="">
+    <list default="true" id="4002836b-4aa0-4069-8b2a-ddc594f1a214" name="Default Changelist" comment="1">
+      <change afterPath="$PROJECT_DIR$/.idea/vcs.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/main.py" beforeDir="false" afterPath="$PROJECT_DIR$/main.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/main.ui" beforeDir="false" afterPath="$PROJECT_DIR$/main.ui" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/newgame.ui" beforeDir="false" afterPath="$PROJECT_DIR$/newgame.ui" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/records.ui" beforeDir="false" afterPath="$PROJECT_DIR$/records.ui" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/settings.ui" beforeDir="false" afterPath="$PROJECT_DIR$/settings.ui" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -23,6 +19,7 @@
   </component>
   <component name="Git.Settings">
     <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
+    <option name="UPDATE_TYPE" value="REBASE" />
   </component>
   <component name="ProjectId" id="1jJPPJ2WPtYWdszdp0yJDRKDPnm" />
   <component name="ProjectLevelVcsManager" settingsEditedManually="true" />
@@ -33,9 +30,10 @@
   </component>
   <component name="PropertiesComponent">
     <property name="RunOnceActivity.ShowReadmeOnStart" value="true" />
+    <property name="SHARE_PROJECT_CONFIGURATION_FILES" value="true" />
     <property name="full.screen.before.presentation.mode" value="false" />
     <property name="last_opened_file_path" value="$PROJECT_DIR$" />
-    <property name="settings.editor.selected.configurable" value="project.propVCSSupport.Mappings" />
+    <property name="settings.editor.selected.configurable" value="vcs.Git" />
   </component>
   <component name="RunManager" selected="Python.main (1)">
     <configuration name="logic (1)" type="PythonConfigurationType" factoryName="Python" temporary="true" nameIsGenerated="true">
@@ -164,12 +162,23 @@
       <option name="presentableId" value="Default" />
       <updated>1603519195677</updated>
     </task>
+    <task id="LOCAL-00001" summary="1">
+      <created>1605095010112</created>
+      <option name="number" value="00001" />
+      <option name="presentableId" value="LOCAL-00001" />
+      <option name="project" value="LOCAL" />
+      <updated>1605095010112</updated>
+    </task>
+    <option name="localTasksCounter" value="2" />
     <servers />
   </component>
   <component name="VcsManagerConfiguration">
     <ignored-roots>
       <path value="$PROJECT_DIR$" />
     </ignored-roots>
+    <MESSAGE value="1" />
+    <option name="LAST_COMMIT_MESSAGE" value="1" />
+    <option name="REFORMAT_BEFORE_PROJECT_COMMIT" value="true" />
   </component>
   <component name="WindowStateProjectService">
     <state x="552" y="201" key="#Notifications" timestamp="1604337034558">
@@ -180,6 +189,10 @@
       <screen x="0" y="0" width="1920" height="1080" />
     </state>
     <state x="0" y="198" key="#com.intellij.execution.impl.EditConfigurationsDialog/0.0.1920.1080@0.0.1920.1080" timestamp="1603616433801" />
+    <state x="155" y="138" key="CommitChangelistDialog2" timestamp="1605095043618">
+      <screen x="0" y="0" width="1920" height="1080" />
+    </state>
+    <state x="155" y="138" key="CommitChangelistDialog2/0.0.1920.1080@0.0.1920.1080" timestamp="1605095043618" />
     <state x="260" y="571" key="FileChooserDialogImpl" timestamp="1604905742212">
       <screen x="0" y="0" width="1920" height="1080" />
     </state>
@@ -240,14 +253,18 @@
       <screen x="0" y="0" width="1920" height="1080" />
     </state>
     <state x="773" y="265" key="RollbackChangesDialog/0.0.1920.1080@0.0.1920.1080" timestamp="1604600294928" />
-    <state x="463" y="185" key="SettingsEditor" timestamp="1605094919795">
+    <state x="463" y="185" key="SettingsEditor" timestamp="1605095149969">
       <screen x="0" y="0" width="1920" height="1080" />
     </state>
-    <state x="463" y="185" key="SettingsEditor/0.0.1920.1080@0.0.1920.1080" timestamp="1605094919795" />
+    <state x="463" y="185" key="SettingsEditor/0.0.1920.1080@0.0.1920.1080" timestamp="1605095149969" />
     <state x="668" y="367" key="com.intellij.ide.util.TipDialog" timestamp="1605094554838">
       <screen x="0" y="0" width="1920" height="1080" />
     </state>
     <state x="668" y="367" key="com.intellij.ide.util.TipDialog/0.0.1920.1080@0.0.1920.1080" timestamp="1605094554838" />
+    <state x="299" y="459" key="com.intellij.openapi.vcs.update.UpdateOrStatusOptionsDialogupdate-v2" timestamp="1605095057126">
+      <screen x="0" y="0" width="1920" height="1080" />
+    </state>
+    <state x="299" y="459" key="com.intellij.openapi.vcs.update.UpdateOrStatusOptionsDialogupdate-v2/0.0.1920.1080@0.0.1920.1080" timestamp="1605095057126" />
     <state x="150" y="240" width="672" height="678" key="search.everywhere.popup" timestamp="1603711764044">
       <screen x="0" y="0" width="1920" height="1080" />
     </state>
