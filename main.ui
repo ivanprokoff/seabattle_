@@ -35,9 +35,7 @@
             <string>MainWindow</string>
         </property>
         <property name="styleSheet">
-            <string notr="true">background-color: qlineargradient(spread:pad, x1:0, y1:0, x2:1, y2:1, stop:0 rgba(0,
-                104, 178, 255), stop:1 rgba(255, 255, 255, 255));
-            </string>
+            <string notr="true"/>
         </property>
         <widget class="QWidget" name="centralwidget">
             <widget class="QLabel" name="start_text">
@@ -49,16 +47,16 @@
                         <height>71</height>
                     </rect>
                 </property>
-    <property name="font">
-     <font>
-      <pointsize>36</pointsize>
-     </font>
-    </property>
-    <property name="layoutDirection">
-     <enum>Qt::LeftToRight</enum>
-    </property>
-    <property name="text">
-     <string>Морской бой</string>
+                <property name="font">
+                    <font>
+                        <pointsize>36</pointsize>
+                    </font>
+                </property>
+                <property name="layoutDirection">
+                    <enum>Qt::LeftToRight</enum>
+                </property>
+                <property name="text">
+                    <string>Морской бой</string>
     </property>
     <property name="alignment">
      <set>Qt::AlignCenter</set>
@@ -81,13 +79,13 @@
        </property>
       </widget>
      </item>
-     <item>
-      <widget class="QPushButton" name="records_btn">
-       <property name="text">
-        <string>Рекорды</string>
-       </property>
-      </widget>
-     </item>
+        <item>
+            <widget class="QPushButton" name="records_btn">
+                <property name="text">
+                    <string>Рекорды</string>
+                </property>
+            </widget>
+        </item>
         <item>
             <widget class="QPushButton" name="settings_btn">
                 <property name="text">

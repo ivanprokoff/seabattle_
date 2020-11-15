@@ -1,5 +1,5 @@
 from PyQt5.QtWidgets import QWidget, QTableWidget, QTableWidgetItem, QVBoxLayout, QHeaderView, QAbstractItemView
-from PyQt5.QtCore import Qt, pyqtSignal
+from PyQt5.QtCore import Qt
 from PyQt5.QtGui import QColor
 from random import randint, choice
 from Ship import Ship
@@ -13,11 +13,8 @@ class BattleField(QWidget):
     SHIP_CELL = 1
     HIT_CELL = 2
     MISS_CELL = 3
-    DEAD_CELL = 4
 
     FIELDS_NUM = 10
-
-    shooted = pyqtSignal()
 
     def __init__(self, enemy_field=False):
         super(BattleField, self).__init__()
@@ -29,7 +26,7 @@ class BattleField(QWidget):
         """
         Инициализация интерфейса поля морского боя
         """
-        cell_size = 34
+        cell_size = 39
         self.table = QTableWidget()
         self.table.setColumnCount(10)
         self.table.setRowCount(10)
@@ -37,7 +34,9 @@ class BattleField(QWidget):
         self.table.setHorizontalScrollBarPolicy(QtCore.Qt.ScrollBarAlwaysOff)
 
         horizontal_header = QHeaderView(Qt.Horizontal)
+        vertical_header = QHeaderView(Qt.Vertical)
         horizontal_header.setDefaultSectionSize(cell_size)
+        vertical_header.setDefaultSectionSize(cell_size)
         self.table.setHorizontalHeader(horizontal_header)
         self.table.setHorizontalHeaderLabels([c for c in "АБВГДЕЖЗИК"])
 
@@ -54,24 +53,32 @@ class BattleField(QWidget):
 
         self.init_ships()
 
-    def update_field_UI(self):
+    def update_field_UI(self, victory=False):
         my_ship_color = QColor(100, 100, 150)
         enemy_ship_color = QColor(100, 100, 150)
-        miss_color = QColor(226, 225, 235)
-        hit_color = QColor(214, 178, 130)
+        miss_color = QColor(179, 179, 179)
+        hit_color = QColor(255, 0, 0)
 
         for x in range(self.FIELDS_NUM):
             for y in range(self.FIELDS_NUM):
-                if self.field[x][y] == self.HIT_CELL:
-                    self.table.item(x, y).setBackground(hit_color)
-                elif self.field[x][y] == self.MISS_CELL:
-                    self.table.item(x, y).setBackground(miss_color)
-                if self.field[x][y] == self.SHIP_CELL:
+                if not victory:
                     if self.enemy_field:
-                        pass
+                        if self.field[x][y] == self.HIT_CELL:
+                            self.table.item(x, y).setBackground(hit_color)
+                        elif self.field[x][y] == self.MISS_CELL:
+                            self.table.item(x, y).setBackground(miss_color)
+                        elif self.field[x][y] == self.SHIP_CELL:
+                            pass
                     else:
-                        if self.field[x][y] == self.SHIP_CELL:
+                        if self.field[x][y] == self.HIT_CELL:
+                            self.table.item(x, y).setBackground(hit_color)
+                        elif self.field[x][y] == self.MISS_CELL:
+                            self.table.item(x, y).setBackground(miss_color)
+                        elif self.field[x][y] == self.SHIP_CELL:
                             self.table.item(x, y).setBackground(my_ship_color)
+                else:
+                    if self.field[x][y] == self.SHIP_CELL:
+                        self.table.item(x, y).setBackground(enemy_ship_color)
 
     def init_ships(self):
         """
@@ -94,7 +101,17 @@ class BattleField(QWidget):
                         random_y = randint(0, self.FIELDS_NUM - 1)
                         valid = self.is_valid_position(random_x, random_y, o, ship[1])
                     self.place_ship(random_x, random_y, o, ship[1])
-
+        else:
+            for ship in ship_fleet:
+                for ship_count in range(ship[0]):
+                    valid = False
+                    random_x, random_y = -1, -1
+                    o = choice([Ship.H_ORIENTATION, Ship.V_ORIENTATION])
+                    while not valid:
+                        random_x = randint(0, self.FIELDS_NUM - 1)
+                        random_y = randint(0, self.FIELDS_NUM - 1)
+                        valid = self.is_valid_position(random_x, random_y, o, ship[1])
+                    self.place_ship(random_x, random_y, o, ship[1])
         self.update_field_UI()
 
     def is_valid_position(self, start_x, start_y, orientation, length):
@@ -168,5 +185,4 @@ class BattleField(QWidget):
         """
         :return: Вернет True, если клетка не содержит корабля и ранее не была обстрелена
         """
-        return self.field[x][y] == self.EMPTY_CELL
-
+        return self.field[x][y] == self.EMPTY_CELL or self.field[x][y] == self.SHIP_CELL

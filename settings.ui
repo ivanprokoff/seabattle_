@@ -26,16 +26,16 @@
                  <y>60</y>
                  <width>131</width>
                  <height>41</height>
-    </rect>
-   </property>
-  </widget>
-  <widget class="QPushButton" name="volume_btn">
-   <property name="geometry">
-    <rect>
-     <x>410</x>
-     <y>60</y>
-     <width>81</width>
-     <height>41</height>
+             </rect>
+         </property>
+     </widget>
+     <widget class="QPushButton" name="volume_btn">
+         <property name="geometry">
+             <rect>
+                 <x>410</x>
+                 <y>60</y>
+                 <width>81</width>
+                 <height>41</height>
     </rect>
    </property>
    <property name="text">
@@ -60,19 +60,19 @@
     <string>Установите уровень громкости</string>
    </property>
   </widget>
-  <widget class="QLabel" name="label_2">
-   <property name="geometry">
-       <rect>
-           <x>10</x>
-           <y>80</y>
-           <width>221</width>
-           <height>16</height>
-       </rect>
-   </property>
-      <property name="text">
-          <string>(Введите целое число от 1 до 100)</string>
-      </property>
-  </widget>
+     <widget class="QLabel" name="label_2">
+         <property name="geometry">
+             <rect>
+                 <x>10</x>
+                 <y>80</y>
+                 <width>221</width>
+                 <height>16</height>
+             </rect>
+         </property>
+         <property name="text">
+             <string>(Введите целое число от 1 до 100)</string>
+         </property>
+     </widget>
      <widget class="QPushButton" name="exit_btn">
          <property name="geometry">
              <rect>
@@ -91,7 +91,7 @@
              <rect>
                  <x>10</x>
                  <y>140</y>
-                 <width>181</width>
+                 <width>351</width>
                  <height>16</height>
              </rect>
          </property>
@@ -101,41 +101,8 @@
              </font>
          </property>
          <property name="text">
-             <string>Выберите цветовую тему</string>
+             <string>Выберите цветовую тему (gradient по умолчанию)</string>
          </property>
-     </widget>
-     <widget class="QWidget" name="">
-         <property name="geometry">
-             <rect>
-                 <x>120</x>
-                 <y>340</y>
-                 <width>260</width>
-                 <height>19</height>
-             </rect>
-         </property>
-         <layout class="QHBoxLayout" name="horizontalLayout">
-             <item>
-                 <widget class="QRadioButton" name="radioButton_3">
-                     <property name="text">
-                         <string>Dark</string>
-                     </property>
-                 </widget>
-             </item>
-             <item>
-                 <widget class="QRadioButton" name="radioButton_2">
-                     <property name="text">
-                         <string>Classic</string>
-                     </property>
-                 </widget>
-             </item>
-             <item>
-                 <widget class="QRadioButton" name="radioButton">
-                     <property name="text">
-                         <string>White</string>
-                     </property>
-                 </widget>
-             </item>
-         </layout>
      </widget>
  </widget>
  <resources/>
