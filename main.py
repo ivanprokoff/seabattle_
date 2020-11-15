@@ -2,6 +2,7 @@ import sqlite3
 import sys
 from datetime import datetime
 from random import choice
+import time
 
 from pprint import pprint
 
@@ -12,24 +13,33 @@ from PyQt5 import QtWidgets, QtMultimedia, QtCore
 from PyQt5 import uic
 from PyQt5.QtWidgets import QMainWindow, QTableWidgetItem, QInputDialog, QButtonGroup, QAbstractItemView, QTableWidget, \
     QLabel, QPushButton, QWidget, QVBoxLayout, QHBoxLayout
-from PyQt5.QtGui import QColor, QFont, QPainter, QIcon, QPixmap
+from PyQt5.QtGui import QColor, QFont, QPainter, QIcon
+from PyQt5.QtCore import pyqtSignal, pyqtSlot, QTimer
 
 
 class NewGameWin(QtWidgets.QWidget):
+    timeout = pyqtSignal()
+
     def __init__(self):
         super().__init__()
         # Создаем 2 поля боя
         self.myBattleField = BattleField(enemy_field=False)
         self.enemyBattleField = BattleField(enemy_field=True)
+        self.con = sqlite3.connect("records.db")
         self.name = 'Player'
         self.shot = None, None
         self.timer = None
         self.timer1 = None
-        self.name_quest()
         self.winner = None
         self.count = 0
         self.make_record = False
+        self.time = 0
+        self.timeInterval = 1000
+        self.timerUp = QTimer()
+        self.timerUp.setInterval(self.timeInterval)
+        self.timerUp.timeout.connect(self.updateUptime)
         # Инициализируем интерфейс
+        self.name_quest()
         self.setup_UI()
 
     def name_quest(self):
@@ -55,9 +65,6 @@ class NewGameWin(QtWidgets.QWidget):
         self.setGeometry(self.left, self.top, self.width, self.height)
 
         self.setFixedSize(890, 480)
-
-        self.time = QtWidgets.QLabel(self)
-        self.time.setGeometry(QtCore.QRect(222, 195, 299, 46))
 
         self.message_area = QLabel("Добро пожаловать в 'Морской бой'! Перед началом просим ознакомиться с правилами")
         self.message_area.setFont(QFont("Times", 14, QFont.Normal))
@@ -89,14 +96,10 @@ class NewGameWin(QtWidgets.QWidget):
         self.show()
 
     def battle_loop(self):
-        self.timer = datetime.now().time()
+        self.timerUp.start()
         """
         основной игровой цикл
         """
-        # self.timer = QtCore.QTimer(self)
-        # self.timer.setInterval(1000)
-        # self.timer.timeout.connect(self.displayTime)
-        # self.timer.start()
         self.player = ActivePlayer(self.myBattleField, self.enemyBattleField)
         self.bot = BotPlayer(self.enemyBattleField, self.myBattleField)
         self.game_over = False
@@ -137,6 +140,9 @@ class NewGameWin(QtWidgets.QWidget):
             self.player.enemy_field.update_field_UI()
         self.is_game_over()
 
+    def updateUptime(self):
+        self.time += 1
+
     def is_game_over(self):
         max_hits = 20
         if not self.game_over:
@@ -147,15 +153,11 @@ class NewGameWin(QtWidgets.QWidget):
                 self.game_over = True
                 self.make_record = True
                 self.player.enemy_field.update_field_UI(victory=True)
-        '''if self.winner != self.bot.name and self.make_record:
-            self.timer1 = datetime.now().time()
-            time_ = self.timer - self.timer1
-            print(time_)  
-            con = sqlite3.connect("records.db")
-            cur = con.cursor()
-            cur.execute("INSERT INTO records(time,name) VALUES(time, name)", {"time": time_,
-                                                                            "name": self.name})
-            con.commit()'''
+        if self.winner != self.bot.name and self.make_record:
+            self.timerUp.stop()
+            cur = self.con.cursor()
+            cur.execute("INSERT INTO records VALUES (?, ?)", (self.name, self.time))
+            self.con.commit()
 
     def pause(self):
         pass
@@ -168,7 +170,7 @@ class SettingsWin(QtWidgets.QWidget):
     def __init__(self):
         super().__init__()
         uic.loadUi('settings.ui', self)
-        self.setFixedSize(525, 399)
+        self.setFixedSize(525, 538)
         self.exit_btn.clicked.connect(self.exit_)
         self.volume_btn.clicked.connect(self.change_volume)
 
@@ -176,25 +178,6 @@ class SettingsWin(QtWidgets.QWidget):
         global player
         VOLUME = int(self.volume_edit.text())
         player.setVolume(VOLUME)
-
-    def paintEvent(self, event):
-        # Создаем объект QPainter для рисования
-        qp = QPainter()
-        # Начинаем процесс рисования
-        qp.begin(self)
-        self.draw_flag(qp)
-        # Завершаем рисование
-        qp.end()
-
-    def draw_flag(self, qp):
-        # Задаем кисть
-        qp.setBrush(QColor(25, 89, 209))
-        # Рисуем прямоугольник заданной кистью
-        qp.drawRect(65, 200, 100, 100)
-        qp.setBrush(QColor(0, 0, 0))
-        qp.drawRect(220, 200, 100, 100)
-        qp.setBrush(QColor(255, 255, 255))
-        qp.drawRect(375, 200, 100, 100)
 
     def exit_(self):
         self.close()
@@ -205,18 +188,21 @@ class RecordsWin(QtWidgets.QWidget):
         super().__init__()
         uic.loadUi('records.ui', self)
 
-        self.setFixedSize(593, 484)
+        self.setFixedSize(322, 484)
         self.exit_btn.clicked.connect(self.exit_)
 
         self.con = sqlite3.connect("records.db")
         cur = self.con.cursor()
         result = cur.execute("SELECT * FROM records").fetchall()
-        self.tableWidget.setRowCount(len(result))
-        self.tableWidget.setColumnCount(len(result[0]))
-        self.titles = [description[0] for description in cur.description]
-        for i, elem in enumerate(result):
-            for j, val in enumerate(elem):
-                self.tableWidget.setItem(i, j, QTableWidgetItem(str(val)))
+        if result:
+            self.tableWidget.setRowCount(len(result))
+            self.tableWidget.setColumnCount(len(result[0]))
+            self.titles = [description[0] for description in cur.description]
+            for i, elem in enumerate(result):
+                for j, val in enumerate(elem):
+                    self.tableWidget.setItem(i, j, QTableWidgetItem(str(val)))
+        else:
+            pass
 
     def exit_(self):
         self.close()
@@ -229,6 +215,7 @@ class MainWindow(QMainWindow):
         self.recordsWindow = None
         self.theme = None
         uic.loadUi('main.ui', self)  # Загружаем дизайн
+        self.setFixedSize(392, 394)
         self.start_btn.clicked.connect(self.newGame)
         self.settings_btn.clicked.connect(self.settings)
         self.records_btn.clicked.connect(self.records)

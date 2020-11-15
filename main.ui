@@ -57,47 +57,47 @@
                 </property>
                 <property name="text">
                     <string>Морской бой</string>
-    </property>
-    <property name="alignment">
-     <set>Qt::AlignCenter</set>
-    </property>
-   </widget>
-   <widget class="QWidget" name="layoutWidget">
-    <property name="geometry">
-     <rect>
-      <x>90</x>
-      <y>170</y>
+                </property>
+                <property name="alignment">
+                    <set>Qt::AlignCenter</set>
+                </property>
+            </widget>
+            <widget class="QWidget" name="layoutWidget">
+                <property name="geometry">
+                    <rect>
+                        <x>90</x>
+                        <y>170</y>
       <width>201</width>
       <height>83</height>
      </rect>
     </property>
-    <layout class="QVBoxLayout" name="verticalLayout">
-     <item>
-      <widget class="QPushButton" name="start_btn">
-       <property name="text">
-        <string>Начать</string>
-       </property>
-      </widget>
-     </item>
-        <item>
-            <widget class="QPushButton" name="records_btn">
-                <property name="text">
-                    <string>Рекорды</string>
-                </property>
+                <layout class="QVBoxLayout" name="verticalLayout">
+                    <item>
+                        <widget class="QPushButton" name="start_btn">
+                            <property name="text">
+                                <string>Начать</string>
+                            </property>
+                        </widget>
+                    </item>
+                    <item>
+                        <widget class="QPushButton" name="records_btn">
+                            <property name="text">
+                                <string>Рекорды</string>
+                            </property>
+                        </widget>
+                    </item>
+                    <item>
+                        <widget class="QPushButton" name="settings_btn">
+                            <property name="text">
+                                <string>Настройки и правила</string>
+                            </property>
+                        </widget>
+                    </item>
+                </layout>
+                <zorder>start_btn</zorder>
+                <zorder>settings_btn</zorder>
+                <zorder>records_btn</zorder>
             </widget>
-        </item>
-        <item>
-            <widget class="QPushButton" name="settings_btn">
-                <property name="text">
-                    <string>Настройки</string>
-                </property>
-            </widget>
-        </item>
-    </layout>
-       <zorder>start_btn</zorder>
-       <zorder>settings_btn</zorder>
-       <zorder>records_btn</zorder>
-   </widget>
   </widget>
   <widget class="QMenuBar" name="menubar">
    <property name="geometry">
