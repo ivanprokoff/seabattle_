@@ -174,7 +174,6 @@ class NewGameWin(QtWidgets.QWidget):
             cur = self.con.cursor()
             cur.execute("INSERT INTO records VALUES (?, ?)", (self.name, self.time))
             self.con.commit()
-            self.pause_btn.setEnabled(False)
 
     def pause(self):
         """
@@ -213,6 +212,7 @@ class SettingsWin(QtWidgets.QWidget):
     def __init__(self):
         super().__init__()
         uic.loadUi('settings.ui', self)
+        self.setWindowTitle('Settings')
         self.setFixedSize(525, 538)
         self.exit_btn.clicked.connect(self.exit_)
         self.volume_btn.clicked.connect(self.change_volume)
@@ -234,23 +234,33 @@ class RecordsWin(QtWidgets.QWidget):
     def __init__(self):
         super().__init__()
         uic.loadUi('records.ui', self)
+        self.setWindowTitle('Records')
 
         self.setFixedSize(322, 484)
         self.exit_btn.clicked.connect(self.exit_)
 
         # Выводим в таблицу все записи из бд ,если они там есть
-        self.con = sqlite3.connect("records.db")
-        cur = self.con.cursor()
-        result = cur.execute("SELECT * FROM records ORDER BY time").fetchall()
-        if result:
-            self.tableWidget.setRowCount(len(result))
-            self.tableWidget.setColumnCount(len(result[0]))
-            self.titles = [description[0] for description in cur.description]
-            for i, elem in enumerate(result):
-                for j, val in enumerate(elem):
-                    self.tableWidget.setItem(i, j, QTableWidgetItem(str(val)))
-        else:
-            pass
+        try:
+            self.con = sqlite3.connect("records.db")
+            cur = self.con.cursor()
+            result = cur.execute("SELECT * FROM records ORDER BY time").fetchall()
+            if result:
+                self.tableWidget.setRowCount(len(result))
+                self.tableWidget.setColumnCount(len(result[0]))
+                self.titles = [description[0] for description in cur.description]
+                for i, elem in enumerate(result):
+                    for j, val in enumerate(elem):
+                        self.tableWidget.setItem(i, j, QTableWidgetItem(str(val)))
+            else:
+                pass
+        except Exception:
+            msgBox = QMessageBox()
+            msgBox.setText('База данных не найдена!')
+            msgBox.setWindowTitle("Выход")
+            msgBox.setStandardButtons(QMessageBox.Ok)
+            returnValue = msgBox.exec()
+            if returnValue == QMessageBox.Ok:
+                self.close()
 
     def exit_(self):
         self.close()
@@ -267,6 +277,7 @@ class MainWindow(QMainWindow):
         self.recordsWindow = None
         self.theme = None
         uic.loadUi('main.ui', self)  # Загружаем дизайн
+        self.setWindowTitle('Seabattle')
         self.setFixedSize(392, 394)
         self.start_btn.clicked.connect(self.newGame)
         self.settings_btn.clicked.connect(self.settings)
