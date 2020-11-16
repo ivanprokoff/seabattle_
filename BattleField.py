@@ -2,7 +2,6 @@ from PyQt5.QtWidgets import QWidget, QTableWidget, QTableWidgetItem, QVBoxLayout
 from PyQt5.QtCore import Qt
 from PyQt5.QtGui import QColor
 from random import randint, choice
-from Ship import Ship
 from PyQt5 import QtCore
 
 
@@ -13,6 +12,9 @@ class BattleField(QWidget):
     SHIP_CELL = 1
     HIT_CELL = 2
     MISS_CELL = 3
+
+    V_ORIENTATION = 0
+    H_ORIENTATION = 1
 
     FIELDS_NUM = 10
 
@@ -84,34 +86,22 @@ class BattleField(QWidget):
         """
         Случайная расстановка кораблей и их отрисовка
         """
-        # Изначально поле битвы пустое
+        # Создаем пустое поле битвы
         self.field = [[0] * self.FIELDS_NUM for i in range(self.FIELDS_NUM)]
 
-        # Флот кораблей. 1 четырехпалубный, 2 трехпалубных, ...
+        # Флот кораблей
         ship_fleet = [(1, 4), (2, 3), (3, 2), (4, 1)]
-        if not self.enemy_field:
-            # записываем корабли в матрицу расположения флота
-            for ship in ship_fleet:
-                for ship_count in range(ship[0]):
-                    valid = False
-                    random_x, random_y = -1, -1
-                    o = choice([Ship.H_ORIENTATION, Ship.V_ORIENTATION])
-                    while not valid:
-                        random_x = randint(0, self.FIELDS_NUM - 1)
-                        random_y = randint(0, self.FIELDS_NUM - 1)
-                        valid = self.is_valid_position(random_x, random_y, o, ship[1])
-                    self.place_ship(random_x, random_y, o, ship[1])
-        else:
-            for ship in ship_fleet:
-                for ship_count in range(ship[0]):
-                    valid = False
-                    random_x, random_y = -1, -1
-                    o = choice([Ship.H_ORIENTATION, Ship.V_ORIENTATION])
-                    while not valid:
-                        random_x = randint(0, self.FIELDS_NUM - 1)
-                        random_y = randint(0, self.FIELDS_NUM - 1)
-                        valid = self.is_valid_position(random_x, random_y, o, ship[1])
-                    self.place_ship(random_x, random_y, o, ship[1])
+        # записываем корабли в матрицу расположения флота
+        for ship in ship_fleet:
+            for ship_count in range(ship[0]):
+                valid = False
+                random_x, random_y = -1, -1
+                o = choice([self.H_ORIENTATION, self.V_ORIENTATION])
+                while not valid:
+                    random_x = randint(0, self.FIELDS_NUM - 1)
+                    random_y = randint(0, self.FIELDS_NUM - 1)
+                    valid = self.is_valid_position(random_x, random_y, o, ship[1])
+                self.place_ship(random_x, random_y, o, ship[1])
         self.update_field_UI()
 
     def is_valid_position(self, start_x, start_y, orientation, length):
@@ -121,12 +111,12 @@ class BattleField(QWidget):
         :return: True, если корабль можно поставить в указанную позицию, иначе False.
         """
         end_x, end_y = -1, -1
-        if orientation == Ship.H_ORIENTATION:
+        if orientation == self.H_ORIENTATION:
             if start_x + length > self.FIELDS_NUM:
                 return False
             end_x = min(start_x + length, self.FIELDS_NUM - 1)
             end_y = min(start_y + 1, self.FIELDS_NUM - 1)
-        elif orientation == Ship.V_ORIENTATION:
+        elif orientation == self.V_ORIENTATION:
             if start_y + length > self.FIELDS_NUM:
                 return False
             end_x = min(start_x + 1, self.FIELDS_NUM - 1)
@@ -147,10 +137,10 @@ class BattleField(QWidget):
         Считается, что задаваемое положение проверено с помощью функции is_valid_position.
         """
         end_x, end_y = -1, -1
-        if orientation == Ship.H_ORIENTATION:
+        if orientation == self.H_ORIENTATION:
             end_x = start_x + length
             end_y = start_y + 1
-        elif orientation == Ship.V_ORIENTATION:
+        elif orientation == self.V_ORIENTATION:
             end_x = start_x + 1
             end_y = start_y + length
 
@@ -169,17 +159,6 @@ class BattleField(QWidget):
                 if self.field[x][y] == value:
                     count += 1
         return count
-
-    def change_field_after_shot(self, row, col, is_hit):
-        """
-        Меняет поле после выстрела по координатам (row, col)
-        """
-        if is_hit:
-            self.field[row][col] = self.HIT_CELL
-        else:
-            self.field[row][col] = self.MISS_CELL
-
-        self.update_field_UI()
 
     def is_valid_shot(self, x, y):
         """

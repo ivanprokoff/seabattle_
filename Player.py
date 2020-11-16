@@ -1,34 +1,38 @@
-from BattleField import BattleField
-from PyQt5.QtCore import QTimer, pyqtSignal, pyqtSlot, QObject
-from abc import abstractmethod
 import random
-import time
 
 
-class Player:
+class ActivePlayer:
+    """
+    Класс игрока с набором необходимых атрибутов
+    """
+
     def __init__(self, player_field, enemy_field):
-        super().__init__()
         self.last_shot = None, None
         self.enemy_filed = enemy_field
         self.player_field = player_field
         self.row = None
         self.col = None
         self.sucess_shot = False
-
-
-class ActivePlayer(Player):
-    def __init__(self, player_field, enemy_field):
-        super().__init__(player_field, enemy_field)
         self.enemy_field = enemy_field
         self.player_field = player_field
 
+    def shot(self):
+        pass
 
-class BotPlayer(Player):
+
+class BotPlayer:
+    """
+    Класс игрока - бота с набором атрибутов
+    """
     success_shot = False
 
     def __init__(self, player_field, enemy_field):
-        super().__init__(player_field, enemy_field)
-
+        self.last_shot = None, None
+        self.enemy_filed = enemy_field
+        self.player_field = player_field
+        self.row = None
+        self.col = None
+        self.sucess_shot = False
         self.name = 'Бот'
         self.enemy_field = enemy_field
         self.player_field = player_field
@@ -36,6 +40,10 @@ class BotPlayer(Player):
         self.col = None
 
     def shot(self):
+        """
+        Выстрел бота
+        :return: координаты выстрела
+        """
         self.row, self.col = self._get_random_coordinats()
         while not self.enemy_filed.is_valid_shot(self.row, self.col):
             self.row, self.col = self._get_random_coordinats()
@@ -49,4 +57,3 @@ class BotPlayer(Player):
 
     def _get_random_coordinats(self):
         return random.randint(0, 9), random.randint(0, 9)
-

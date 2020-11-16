@@ -1,8 +1,6 @@
 import sqlite3
 import sys
-from datetime import datetime
 from random import choice
-import time
 
 from pprint import pprint
 
@@ -11,10 +9,10 @@ from Player import BotPlayer, ActivePlayer
 
 from PyQt5 import QtWidgets, QtMultimedia, QtCore
 from PyQt5 import uic
-from PyQt5.QtWidgets import QMainWindow, QTableWidgetItem, QInputDialog, QButtonGroup, QAbstractItemView, QTableWidget, \
-    QLabel, QPushButton, QWidget, QVBoxLayout, QHBoxLayout
-from PyQt5.QtGui import QColor, QFont, QPainter, QIcon
-from PyQt5.QtCore import pyqtSignal, pyqtSlot, QTimer
+from PyQt5.QtWidgets import QMainWindow, QTableWidgetItem, QInputDialog, \
+    QLabel, QPushButton, QVBoxLayout, QHBoxLayout, QMessageBox
+from PyQt5.QtGui import QFont, QIcon
+from PyQt5.QtCore import pyqtSignal, QTimer
 
 
 class NewGameWin(QtWidgets.QWidget):
@@ -26,10 +24,8 @@ class NewGameWin(QtWidgets.QWidget):
         self.myBattleField = BattleField(enemy_field=False)
         self.enemyBattleField = BattleField(enemy_field=True)
         self.con = sqlite3.connect("records.db")
-        self.name = 'Player'
+        self.name = None
         self.shot = None, None
-        self.timer = None
-        self.timer1 = None
         self.winner = None
         self.count = 0
         self.make_record = False
@@ -38,6 +34,8 @@ class NewGameWin(QtWidgets.QWidget):
         self.timerUp = QTimer()
         self.timerUp.setInterval(self.timeInterval)
         self.timerUp.timeout.connect(self.updateUptime)
+        player.pause()
+
         # Инициализируем интерфейс
         self.name_quest()
         self.setup_UI()
@@ -49,7 +47,11 @@ class NewGameWin(QtWidgets.QWidget):
         """
         name, ok_pressed = QInputDialog.getText(self, "Введите имя",
                                                 "Как тебя зовут?")
-        if ok_pressed:
+        if not ok_pressed:
+            self.name = "Player"
+        elif name == '':
+            self.name = 'Player'
+        else:
             self.name = name
 
     def setup_UI(self):
@@ -66,7 +68,8 @@ class NewGameWin(QtWidgets.QWidget):
 
         self.setFixedSize(890, 480)
 
-        self.message_area = QLabel("Добро пожаловать в 'Морской бой'! Перед началом просим ознакомиться с правилами")
+        self.message_area = QLabel(f"Добро пожаловать в 'Морской бой', {self.name}! "
+                                   f"Перед началом просим ознакомиться с правилами")
         self.message_area.setFont(QFont("Times", 14, QFont.Normal))
 
         self.exit_button = QPushButton('Выход')
@@ -96,10 +99,11 @@ class NewGameWin(QtWidgets.QWidget):
         self.show()
 
     def battle_loop(self):
-        self.timerUp.start()
         """
         основной игровой цикл
         """
+        self.start_button.setEnabled(False)
+        self.timerUp.start()
         self.player = ActivePlayer(self.myBattleField, self.enemyBattleField)
         self.bot = BotPlayer(self.enemyBattleField, self.myBattleField)
         self.game_over = False
@@ -118,6 +122,11 @@ class NewGameWin(QtWidgets.QWidget):
             self.player.enemy_field.table.cellClicked.connect(self.make_shot)
 
     def make_shot(self, row, col):
+        """
+        функция выстрела игрока
+        :param row: строка таблицы - поля
+        :param col: колонка таблицы - поля
+        """
         if not self.game_over:
             a = row
             b = col
@@ -127,6 +136,9 @@ class NewGameWin(QtWidgets.QWidget):
                     self.message_area.setText(f'Попадание! {self.name} ходит повторно!')
                     self.player.enemy_field.field[a][b] = 2
                 else:
+                    """
+                    Если игрок промахнулся, то ходит бот
+                    """
                     self.player.enemy_field.field[a][b] = 3
                     self.bot.shot()
                     while self.bot.success_shot:
@@ -141,6 +153,9 @@ class NewGameWin(QtWidgets.QWidget):
         self.is_game_over()
 
     def updateUptime(self):
+        """
+        счет времени
+        """
         self.time += 1
 
     def is_game_over(self):
@@ -154,19 +169,47 @@ class NewGameWin(QtWidgets.QWidget):
                 self.make_record = True
                 self.player.enemy_field.update_field_UI(victory=True)
         if self.winner != self.bot.name and self.make_record:
+            # Если победил игроК, создаем запись с его времени в бд
             self.timerUp.stop()
             cur = self.con.cursor()
             cur.execute("INSERT INTO records VALUES (?, ?)", (self.name, self.time))
             self.con.commit()
+            self.pause_btn.setEnabled(False)
 
     def pause(self):
-        pass
+        """
+        Функция паузы
+        """
+
+        def continue_():
+            self.timerUp.start()
+            self.pause_btn.setText('Пауза')
+            self.message_area.setText(f"Продолжаем!!")
+
+        self.timerUp.stop()
+        self.pause_btn.setText('Продолжим')
+        self.message_area.setText(f"Пауза...")
+        self.pause_btn.clicked.connect(continue_)
 
     def exit_(self):
-        self.close()
+        """
+        Выход
+        """
+        msgBox = QMessageBox()
+        msgBox.setText(f"{self.name}, Вы действительно хотите выйти? Ваш результат не сохранится.")
+        msgBox.setWindowTitle("Выход")
+        msgBox.setStandardButtons(QMessageBox.Ok | QMessageBox.Cancel)
+        returnValue = msgBox.exec()
+        if returnValue == QMessageBox.Ok:
+            self.close()
+        player.play()
 
 
 class SettingsWin(QtWidgets.QWidget):
+    """
+    Класс "настройки"
+    """
+
     def __init__(self):
         super().__init__()
         uic.loadUi('settings.ui', self)
@@ -184,6 +227,10 @@ class SettingsWin(QtWidgets.QWidget):
 
 
 class RecordsWin(QtWidgets.QWidget):
+    """
+    Класс "окно рекордов"
+    """
+
     def __init__(self):
         super().__init__()
         uic.loadUi('records.ui', self)
@@ -191,9 +238,10 @@ class RecordsWin(QtWidgets.QWidget):
         self.setFixedSize(322, 484)
         self.exit_btn.clicked.connect(self.exit_)
 
+        # Выводим в таблицу все записи из бд ,если они там есть
         self.con = sqlite3.connect("records.db")
         cur = self.con.cursor()
-        result = cur.execute("SELECT * FROM records").fetchall()
+        result = cur.execute("SELECT * FROM records ORDER BY time").fetchall()
         if result:
             self.tableWidget.setRowCount(len(result))
             self.tableWidget.setColumnCount(len(result[0]))
@@ -209,6 +257,10 @@ class RecordsWin(QtWidgets.QWidget):
 
 
 class MainWindow(QMainWindow):
+    """
+    Главное окно игры
+    """
+
     def __init__(self):
         super().__init__()
         self.settingsWindow = None
@@ -219,6 +271,7 @@ class MainWindow(QMainWindow):
         self.start_btn.clicked.connect(self.newGame)
         self.settings_btn.clicked.connect(self.settings)
         self.records_btn.clicked.connect(self.records)
+        self.exit_button.clicked.connect(self.exit)
         self.choose_theme()
 
     def choose_theme(self):
@@ -239,18 +292,36 @@ class MainWindow(QMainWindow):
                 self.setStyleSheet('background-color: rgb(156, 177, 240);')
 
     def newGame(self):
+        """
+        Создание новой игры
+        """
         self.newgameWindow = NewGameWin()
         self.newgameWindow.show()
 
     def settings(self):
+        """
+        Вызов окна настроек
+        """
         if not self.settingsWindow:
             self.settingsWindow = SettingsWin()
         self.settingsWindow.show()
 
     def records(self):
+        """
+        Вызов окна рекордов
+        """
         if not self.recordsWindow:
             self.recordsWindow = RecordsWin()
         self.recordsWindow.show()
+
+    def exit(self):
+        msgBox = QMessageBox()
+        msgBox.setText(f"Вы действительно хотите выйти?")
+        msgBox.setWindowTitle("Выйти из игры")
+        msgBox.setStandardButtons(QMessageBox.Ok | QMessageBox.Cancel)
+        returnValue = msgBox.exec()
+        if returnValue == QMessageBox.Ok:
+            self.close()
 
 
 if __name__ == "__main__":
