@@ -1,0 +1,124 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ui version="4.0">
+    <class>MainWin</class>
+    <widget class="QMainWindow" name="MainWin">
+        <property name="geometry">
+            <rect>
+                <x>0</x>
+                <y>0</y>
+                <width>392</width>
+                <height>394</height>
+            </rect>
+        </property>
+        <property name="sizePolicy">
+            <sizepolicy hsizetype="Fixed" vsizetype="Fixed">
+                <horstretch>0</horstretch>
+                <verstretch>0</verstretch>
+            </sizepolicy>
+        </property>
+        <property name="minimumSize">
+            <size>
+                <width>0</width>
+                <height>0</height>
+            </size>
+        </property>
+        <property name="maximumSize">
+            <size>
+                <width>16777215</width>
+                <height>16777215</height>
+            </size>
+        </property>
+        <property name="contextMenuPolicy">
+            <enum>Qt::ActionsContextMenu</enum>
+        </property>
+        <property name="windowTitle">
+            <string>MainWindow</string>
+        </property>
+        <property name="styleSheet">
+            <string notr="true"/>
+        </property>
+        <widget class="QWidget" name="centralwidget">
+            <widget class="QLabel" name="start_text">
+                <property name="geometry">
+                    <rect>
+                        <x>40</x>
+                        <y>60</y>
+                        <width>311</width>
+                        <height>71</height>
+                    </rect>
+                </property>
+                <property name="font">
+                    <font>
+                        <pointsize>36</pointsize>
+                    </font>
+                </property>
+                <property name="layoutDirection">
+                    <enum>Qt::LeftToRight</enum>
+                </property>
+                <property name="text">
+                    <string>Морской бой</string>
+                </property>
+                <property name="alignment">
+                    <set>Qt::AlignCenter</set>
+                </property>
+            </widget>
+            <widget class="QWidget" name="">
+                <property name="geometry">
+                    <rect>
+                        <x>90</x>
+                        <y>170</y>
+                        <width>211</width>
+                        <height>114</height>
+                    </rect>
+                </property>
+                <layout class="QVBoxLayout" name="verticalLayout_2">
+                    <item>
+                        <layout class="QVBoxLayout" name="verticalLayout">
+                            <item>
+                                <widget class="QPushButton" name="start_btn">
+                                    <property name="text">
+                                        <string>Начать</string>
+                                    </property>
+                                </widget>
+                            </item>
+                            <item>
+                                <widget class="QPushButton" name="records_btn">
+                                    <property name="text">
+                                        <string>Рекорды</string>
+                                    </property>
+                                </widget>
+                            </item>
+                            <item>
+                                <widget class="QPushButton" name="settings_btn">
+                                    <property name="text">
+                                        <string>Настройки и правила</string>
+                                    </property>
+                                </widget>
+                            </item>
+                        </layout>
+                    </item>
+                    <item>
+                        <widget class="QPushButton" name="exit_button">
+                            <property name="text">
+                                <string>Выход</string>
+                            </property>
+                        </widget>
+                    </item>
+                </layout>
+            </widget>
+        </widget>
+        <widget class="QMenuBar" name="menubar">
+            <property name="geometry">
+                <rect>
+                    <x>0</x>
+                    <y>0</y>
+                    <width>392</width>
+                    <height>21</height>
+                </rect>
+            </property>
+        </widget>
+        <widget class="QStatusBar" name="statusbar"/>
+    </widget>
+    <resources/>
+    <connections/>
+</ui>

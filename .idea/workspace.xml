@@ -3,13 +3,6 @@
   <component name="ChangeListManager">
     <list default="true" id="4002836b-4aa0-4069-8b2a-ddc594f1a214" name="Default Changelist" comment="">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/BattleField.py" beforeDir="false" afterPath="$PROJECT_DIR$/BattleField.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Player.py" beforeDir="false" afterPath="$PROJECT_DIR$/Player.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Ship.py" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/main.py" beforeDir="false" afterPath="$PROJECT_DIR$/main.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/main.ui" beforeDir="false" afterPath="$PROJECT_DIR$/main.ui" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/records.db" beforeDir="false" afterPath="$PROJECT_DIR$/records.db" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/settings.ui" beforeDir="false" afterPath="$PROJECT_DIR$/settings.ui" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -215,7 +208,14 @@
       <option name="project" value="LOCAL" />
       <updated>1605464424829</updated>
     </task>
-    <option name="localTasksCounter" value="7" />
+    <task id="LOCAL-00007" summary="добавлены изменения дизайна">
+      <created>1605529075785</created>
+      <option name="number" value="00007" />
+      <option name="presentableId" value="LOCAL-00007" />
+      <option name="project" value="LOCAL" />
+      <updated>1605529075785</updated>
+    </task>
+    <option name="localTasksCounter" value="8" />
     <servers />
   </component>
   <component name="Vcs.Log.History.Properties">
@@ -250,10 +250,10 @@
       <screen x="0" y="0" width="1920" height="1080" />
     </state>
     <state x="717" y="350" key="#com.intellij.fileTypes.FileTypeChooser/0.0.1920.1080@0.0.1920.1080" timestamp="1605188654141" />
-    <state x="155" y="138" key="CommitChangelistDialog2" timestamp="1605464422257">
+    <state x="155" y="138" key="CommitChangelistDialog2" timestamp="1605529068988">
       <screen x="0" y="0" width="1920" height="1080" />
     </state>
-    <state x="155" y="138" key="CommitChangelistDialog2/0.0.1920.1080@0.0.1920.1080" timestamp="1605464422257" />
+    <state x="155" y="138" key="CommitChangelistDialog2/0.0.1920.1080@0.0.1920.1080" timestamp="1605529068988" />
     <state x="260" y="571" key="FileChooserDialogImpl" timestamp="1605436265544">
       <screen x="0" y="0" width="1920" height="1080" />
     </state>
@@ -318,18 +318,18 @@
       <screen x="0" y="0" width="1920" height="1080" />
     </state>
     <state x="463" y="185" key="SettingsEditor/0.0.1920.1080@0.0.1920.1080" timestamp="1605095149969" />
-    <state x="80" y="276" key="Vcs.Push.Dialog.v2" timestamp="1605464522132">
+    <state x="80" y="276" key="Vcs.Push.Dialog.v2" timestamp="1605529106324">
       <screen x="0" y="0" width="1920" height="1080" />
     </state>
-    <state x="80" y="276" key="Vcs.Push.Dialog.v2/0.0.1920.1080@0.0.1920.1080" timestamp="1605464522132" />
+    <state x="80" y="276" key="Vcs.Push.Dialog.v2/0.0.1920.1080@0.0.1920.1080" timestamp="1605529106324" />
     <state x="668" y="367" key="com.intellij.ide.util.TipDialog" timestamp="1605500808041">
       <screen x="0" y="0" width="1920" height="1080" />
     </state>
     <state x="668" y="367" key="com.intellij.ide.util.TipDialog/0.0.1920.1080@0.0.1920.1080" timestamp="1605500808041" />
-    <state x="299" y="459" key="com.intellij.openapi.vcs.update.UpdateOrStatusOptionsDialogupdate-v2" timestamp="1605464431521">
+    <state x="299" y="459" key="com.intellij.openapi.vcs.update.UpdateOrStatusOptionsDialogupdate-v2" timestamp="1605529084477">
       <screen x="0" y="0" width="1920" height="1080" />
     </state>
-    <state x="299" y="459" key="com.intellij.openapi.vcs.update.UpdateOrStatusOptionsDialogupdate-v2/0.0.1920.1080@0.0.1920.1080" timestamp="1605464431521" />
+    <state x="299" y="459" key="com.intellij.openapi.vcs.update.UpdateOrStatusOptionsDialogupdate-v2/0.0.1920.1080@0.0.1920.1080" timestamp="1605529084477" />
     <state x="701" y="188" key="refactoring.ChangeSignatureDialog" timestamp="1605428376893">
       <screen x="0" y="0" width="1920" height="1080" />
     </state>
