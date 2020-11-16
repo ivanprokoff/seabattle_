@@ -3,9 +3,6 @@
   <component name="ChangeListManager">
     <list default="true" id="4002836b-4aa0-4069-8b2a-ddc594f1a214" name="Default Changelist" comment="">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/dist/records.db" beforeDir="false" afterPath="$PROJECT_DIR$/dist/records.db" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/main.py" beforeDir="false" afterPath="$PROJECT_DIR$/main.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/records.db" beforeDir="false" afterPath="$PROJECT_DIR$/records.db" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -225,7 +222,14 @@
       <option name="project" value="LOCAL" />
       <updated>1605529400316</updated>
     </task>
-    <option name="localTasksCounter" value="9" />
+    <task id="LOCAL-00009" summary="добавлены изменения дизайна">
+      <created>1605532288579</created>
+      <option name="number" value="00009" />
+      <option name="presentableId" value="LOCAL-00009" />
+      <option name="project" value="LOCAL" />
+      <updated>1605532288579</updated>
+    </task>
+    <option name="localTasksCounter" value="10" />
     <servers />
   </component>
   <component name="Vcs.Log.History.Properties">
@@ -260,10 +264,10 @@
       <screen x="0" y="0" width="1920" height="1080" />
     </state>
     <state x="717" y="350" key="#com.intellij.fileTypes.FileTypeChooser/0.0.1920.1080@0.0.1920.1080" timestamp="1605188654141" />
-    <state x="155" y="138" key="CommitChangelistDialog2" timestamp="1605529392283">
+    <state x="155" y="138" key="CommitChangelistDialog2" timestamp="1605532285811">
       <screen x="0" y="0" width="1920" height="1080" />
     </state>
-    <state x="155" y="138" key="CommitChangelistDialog2/0.0.1920.1080@0.0.1920.1080" timestamp="1605529392283" />
+    <state x="155" y="138" key="CommitChangelistDialog2/0.0.1920.1080@0.0.1920.1080" timestamp="1605532285811" />
     <state x="260" y="571" key="FileChooserDialogImpl" timestamp="1605436265544">
       <screen x="0" y="0" width="1920" height="1080" />
     </state>
@@ -328,10 +332,10 @@
       <screen x="0" y="0" width="1920" height="1080" />
     </state>
     <state x="463" y="185" key="SettingsEditor/0.0.1920.1080@0.0.1920.1080" timestamp="1605095149969" />
-    <state x="80" y="276" key="Vcs.Push.Dialog.v2" timestamp="1605529406276">
+    <state x="80" y="276" key="Vcs.Push.Dialog.v2" timestamp="1605532300097">
       <screen x="0" y="0" width="1920" height="1080" />
     </state>
-    <state x="80" y="276" key="Vcs.Push.Dialog.v2/0.0.1920.1080@0.0.1920.1080" timestamp="1605529406276" />
+    <state x="80" y="276" key="Vcs.Push.Dialog.v2/0.0.1920.1080@0.0.1920.1080" timestamp="1605532300097" />
     <state x="668" y="367" key="com.intellij.ide.util.TipDialog" timestamp="1605500808041">
       <screen x="0" y="0" width="1920" height="1080" />
     </state>
