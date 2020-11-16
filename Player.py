@@ -30,6 +30,7 @@ class BotPlayer:
         self.last_shot = None, None
         self.enemy_filed = enemy_field
         self.player_field = player_field
+
         self.row = None
         self.col = None
         self.sucess_shot = False
